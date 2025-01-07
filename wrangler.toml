@@ -1,4 +1,4 @@
-name = "angelicmediumpurpleworkers"                      # Name of your Worker
+name = "email-saver"                      # Name of your Worker
 type = "rust"                           # Specify Rust as the project type
 
 account_id = "bd46ae11d484452139c38cbfdd7b2a46"  # Your Cloudflare account ID
