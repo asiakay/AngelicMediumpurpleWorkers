@@ -1,17 +1,35 @@
+// Fetching from the API
 fetch("https://fancy-scene-ce9b.algrady.workers.dev")
-.then(response => response.text())
-.then(data => {
-    document.getElementById("api-response").innerText = `API Response: ${data}`;
-})
-.catch(err => {
-    console.error("Error fetching API:", err);
-});
+    .then(response => {
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        return response.text();
+    })
+    .then(data => {
+        const apiResponseElement = document.getElementById("api-response");
+        if (apiResponseElement) {
+            apiResponseElement.innerText = `API Response: ${data}`;
+        } else {
+            console.warn("Element with id 'api-response' not found.");
+        }
+    })
+    .catch(err => {
+        console.error("Error fetching API:", err);
+    });
 
-
+// Email form submission
 document.getElementById("email-form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const email = document.getElementById("email").value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        const responseElement = document.getElementById("response");
+        if (responseElement) {
+            responseElement.innerText = "Invalid email address.";
+        }
+        return;
+    }
 
     try {
         const response = await fetch("https://email-saver.algrady.workers.dev/", {
@@ -20,10 +38,20 @@ document.getElementById("email-form").addEventListener("submit", async (e) => {
             body: JSON.stringify({ email }),
         });
 
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const result = await response.text();
-        document.getElementById("response").innerText = result;
+        const responseElement = document.getElementById("response");
+        if (responseElement) {
+            responseElement.innerText = result;
+        }
     } catch (error) {
         console.error("Error submitting email:", error);
-        document.getElementById("response").innerText = "Error submitting email.";
+        const responseElement = document.getElementById("response");
+        if (responseElement) {
+            responseElement.innerText = "Error submitting email.";
+        }
     }
 });
