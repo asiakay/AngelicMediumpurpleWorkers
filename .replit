@@ -1,10 +1,19 @@
 hidden = ["target", ".cargo"]
 
 entrypoint = "src/main.rs"
-modules = ["rust-stable"]
+modules = ["nodejs-20", "rust-stable"]
 
 [nix]
 channel = "stable-24_05"
 
 [gitHubImport]
 requiredFiles = [".replit"]
+
+[[ports]]
+localPort = 8787
+externalPort = 3000
+
+[[ports]]
+localPort = 8976
+externalPort = 9000
+exposeLocalhost = true

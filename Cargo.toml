@@ -4,3 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+worker = "0.1.0" # Add the latest version of the worker crate here
