@@ -32,7 +32,7 @@ document.getElementById("email-form").addEventListener("submit", async (e) => {
     }
 
     try {
-        const response = await fetch("https://email-saver.algrady.workers.dev/", {
+        const response = await fetch("https://contact-us.algrady.workers.dev/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email }),

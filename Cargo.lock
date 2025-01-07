@@ -3,13 +3,6 @@
 version = 4
 
 [[package]]
-name = "AngelicMediumpurpleWorkers"
-version = "0.1.0"
-dependencies = [
- "worker",
-]
-
-[[package]]
 name = "addr2line"
 version = "0.24.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -83,6 +76,13 @@ dependencies = [
  "js-sys",
  "num-traits",
  "wasm-bindgen",
+]
+
+[[package]]
+name = "contact-us"
+version = "0.1.0"
+dependencies = [
+ "worker",
 ]
 
 [[package]]
