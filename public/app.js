@@ -18,40 +18,29 @@ fetch("https://fancy-scene-ce9b.algrady.workers.dev")
 
 // Email form submission
 document.getElementById("email-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const email = document.getElementById("email").value;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const email = document.getElementById("email").value;
+  const responseDiv = document.getElementById("response");
 
-    if (!emailRegex.test(email)) {
-        const responseElement = document.getElementById("response");
-        if (responseElement) {
-            responseElement.innerText = "Invalid email address.";
-        }
-        return;
+  try {
+    const response = await fetch("/api/submit-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    const responseText = await response.text();
+    if (response.ok) {
+      responseDiv.textContent = "Success: " + responseText;
+      responseDiv.style.color = "green";
+    } else {
+      responseDiv.textContent = "Error: " + responseText;
+      responseDiv.style.color = "red";
     }
-
-    try {
-        const response = await fetch("https://contact-us.algrady.workers.dev/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email }),
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const result = await response.text();
-        const responseElement = document.getElementById("response");
-        if (responseElement) {
-            responseElement.innerText = result;
-        }
-    } catch (error) {
-        console.error("Error submitting email:", error);
-        const responseElement = document.getElementById("response");
-        if (responseElement) {
-            responseElement.innerText = "Error submitting email.";
-        }
-    }
+  } catch (error) {
+    console.error("Error submitting email:", error);
+    responseDiv.textContent = "An error occurred. Please try again.";
+    responseDiv.style.color = "red";
+  }
 });
