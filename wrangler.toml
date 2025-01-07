@@ -1,0 +1,9 @@
+name = "angelicmediumpurpleworkers"                      # Name of your Worker
+type = "rust"                           # Specify Rust as the project type
+
+account_id = "bd46ae11d484452139c38cbfdd7b2a46"  # Your Cloudflare account ID
+workers_dev = true                      # Enable Workers.dev for testing
+compatibility_date = "2025-01-07"      # The current date for compatibility
+
+[build]
+command = "cargo build --target wasm32-unknown-unknown --release"  # Build command
