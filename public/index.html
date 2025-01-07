@@ -14,7 +14,37 @@
         <input type="email" id="email" placeholder="Enter your email" required />
         <button type="submit">Submit</button>
     </form>
-    <p id="response"></p>
-    <script src="app.js"></script>
+     <div id="response" class="response-message"></div>
+
+  <script>
+    document.getElementById("email-form").addEventListener("submit", async (e) => {
+      e.preventDefault(); // Prevent form from reloading the page
+
+      const email = document.getElementById("email").value;
+      const responseDiv = document.getElementById("response");
+
+      try {
+        // Send the email to the API endpoint
+        const response = await fetch("/api/submit-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+
+        const responseText = await response.text(); // Get response text
+        if (response.ok) {
+          responseDiv.textContent = "Success: " + responseText;
+          responseDiv.style.color = "green"; // Success message styling
+        } else {
+          responseDiv.textContent = "Error: " + responseText;
+          responseDiv.style.color = "red"; // Error message styling
+        }
+      } catch (error) {
+        console.error("Error submitting email:", error);
+        responseDiv.textContent = "An error occurred. Please try again.";
+        responseDiv.style.color = "red";
+      }
+    });
+  </script>
 </body>
 </html>
