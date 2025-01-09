@@ -16,3 +16,6 @@ entry-point = "./functions" # Folder for your API functions
 
 [build]
 command = "" # Leave blank for static sites
+
+# Optional environment variable for Pages deployment
+pages_build_output_dir = "./public"
