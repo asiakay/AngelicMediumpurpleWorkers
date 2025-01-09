@@ -1,0 +1,18 @@
+name = "angelicmediumpurpleworkers"
+main = "./functions/api/submit-email.js" # Entry point for your Worker (adjust if needed)
+type = "javascript" # Specifies the Worker uses JavaScript
+
+account_id = "bd46ae11d484452139c38cbfdd7b2a46" # Replace with your Cloudflare account ID
+workers_dev = true # Enables development on workers.dev subdomain
+
+[env]
+kv_namespaces = [
+  { binding = "EMAILS_KV", id = "5ab6ced002e54da09d8894ddc8bbd70f" } # Replace with your KV namespace ID
+]
+
+[site]
+bucket = "./public" # Folder containing your static files
+entry-point = "./functions" # Folder for your API functions
+
+[build]
+command = "" # Leave blank for static sites
